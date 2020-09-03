@@ -7,43 +7,59 @@
 #include <unistd.h>
 #include "wav.h"
 
-int main(int argc, char **argv){
-	int option;
-	char *readFile = NULL;
-
+FILE * comando(int argc, char **argv){
+	int option, flag_i = 0;
+	char *value_i;
 	// opcoes: -i arquivo
 	while((option = getopt(argc, argv, "i:")) != -1)
 		switch(option){
 			case 'i':		//opcao -i selecionada
-				readFile = optarg;
+				flag_i = 1;
+				value_i = optarg;
 				break;
 			default:
 				fprintf(stderr, "Opção requer um argumento!\n");
 				exit(1);
 		}
+	// verifica se houve entrada com -i
+	if(flag_i)
+		return fopen(value_i,"r");
+	else
+		return stdin;
+}
 
-	wavType wav;
-
-	if(!readInfo(&wav, readFile)){
+int main(int argc, char **argv){
+	FILE *input;	
+	// tratamento da linha de comando
+	input = comando(argc, argv);
+	if(!input){
 		fprintf(stderr, "Erro na leitura do arquivo WAV!\n");
+		exit(1);
+	}
+	// Declaração de variável do tipo WAV
+	wavHeader_t wav;
+	// realiza a leitura das informações contidas nos arquivos
+	if(!readInfo(&wav, input)){
+		fprintf(stderr, "Erro na leitura das informações do arquivo WAV!\n");
 		exit(1);
 	}
 	
 	printf("riff ID			(%ld bytes): \"%.4s\"\n", sizeof(wav.riffID), wav.riffID);
 	printf("riff Size		(%ld bytes): %d\n", sizeof(wav.riffSize), wav.riffSize);
-	printf("Format			(%ld bytes): \"%.4s\"\n", sizeof(wav.format), wav.format);
+	printf("format			(%ld bytes): \"%.4s\"\n", sizeof(wav.format), wav.format);
 	printf("fmt ID			(%ld bytes): \"%.4s\"\n", sizeof(wav.fmtID), wav.fmtID);
 	printf("fmt Size		(%ld bytes): %d\n", sizeof(wav.fmtSize), wav.fmtSize);
-	printf("Audio format		(%ld bytes): %d\n", sizeof(wav.audioFormat), wav.audioFormat);
-	printf("Number of Channels	(%ld bytes): %d\n", sizeof(wav.numChannels), wav.numChannels);
-	printf("Sample rate		(%ld bytes): %d\n", sizeof(wav.sampleRate), wav.sampleRate);
-	printf("Byte rate		(%ld bytes): %d\n", sizeof(wav.byteRate), wav.byteRate);
-	printf("Block align		(%ld bytes): %d\n", sizeof(wav.blockAlign), wav.blockAlign);
-	printf("Bits per sample		(%ld bytes): %d\n", sizeof(wav.bitsPerSample), wav.bitsPerSample);
+	printf("audio format		(%ld bytes): %d\n", sizeof(wav.audioFormat), wav.audioFormat);
+	printf("number of channels	(%ld bytes): %d\n", sizeof(wav.numChannels), wav.numChannels);
+	printf("sample rate		(%ld bytes): %d\n", sizeof(wav.sampleRate), wav.sampleRate);
+	printf("byte rate		(%ld bytes): %d\n", sizeof(wav.byteRate), wav.byteRate);
+	printf("block align		(%ld bytes): %d\n", sizeof(wav.blockAlign), wav.blockAlign);
+	printf("bits per sample		(%ld bytes): %d\n", sizeof(wav.bitsPerSample), wav.bitsPerSample);
 	printf("data ID			(%ld bytes): \"%.4s\"\n", sizeof(wav.dataID), wav.dataID);
 	printf("data Size		(%ld bytes): %d\n", sizeof(wav.dataSize), wav.dataSize);
-	printf("Bytes per sample		 : %d\n", wav.bitsPerSample/8);
-	printf("samples per channel		 : %d\n", (wav.dataSize/(wav.bitsPerSample/8))/wav.numChannels);
+	printf("bytes per sample		 : %d\n", wav.bytesPerSample);
+	printf("samples per channel		 : %d\n", wav.samplesPerChannel);
 
+	fclose(input);
 	return 0;
 }

@@ -1,10 +1,11 @@
 /*	GRR20190374 Tiago Henrique Conte
 	Projeto de processamento de áudio
-	Biblioteca WAV 
+	Cabeçalho Biblioteca WAV 
 */
 #include <stdint.h>
 
-typedef struct wavType {
+// Struct para cabeçalho de arquivo WAV
+typedef struct wavHeader_t {
 	// Informacoes do RIFF
 	char riffID[4];
 	uint32_t riffSize;
@@ -21,7 +22,18 @@ typedef struct wavType {
 	// Informacoes do data
 	char dataID[4];
 	uint32_t dataSize;
-} wavType;
+	uint16_t bytesPerSample;
+	uint32_t samplesPerChannel;
+} wavHeader_t;
 
-// Lê informações no arquivo WAV
-int readInfo(wavType *wav, char *readFile);
+typedef struct wavSamples_t {
+	uint32_t *vetorSamples;
+} wavSamples_t;
+
+
+// Lê informações do arquivo WAV
+int readInfo(wavHeader_t *wav, FILE *readFile);
+// Lê samples do arquivo WAV
+int readSamples(wavHeader_t *wav, wavSamples_t *samples, FILE *readFile);
+// Escreve samples em arquivo WAV
+int writeSamples(wavHeader_t *wav, wavSamples_t *samples, FILE *writeFile);
