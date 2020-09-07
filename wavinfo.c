@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "wav.h"
+#include "linhaDeComando.h"
 
 FILE * comando(int argc, char **argv){
 	int option, flag_i = 0;
@@ -29,9 +30,9 @@ FILE * comando(int argc, char **argv){
 }
 
 int main(int argc, char **argv){
-	FILE *input;	
+	FILE *input;
 	// tratamento da linha de comando
-	input = comando(argc, argv);
+	trataComandoInput(argc, argv, &input);
 	if(!input){
 		fprintf(stderr, "Erro na leitura do arquivo WAV!\n");
 		exit(1);

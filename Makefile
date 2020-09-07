@@ -3,7 +3,7 @@
 CFLAGS = -Wall
 CC = gcc
  
-objs = wav.o
+objs = wav.o linhaDeComando.o
  
 # regra default
 all: wavinfo wavvol wavnorm
@@ -18,6 +18,7 @@ wavinfo.o: wavinfo.c wav.h
 wavvol.o: wavvol.c wav.h
 wavnorm.o: wavnorm.c wav.h
 wav.o: wav.c wav.h
+linhaDeComando.o: linhaDeComando.c linhaDeComando.h
 
 # compila com flags de depuração
 debug: CFLAGS += -DDEBUG -g
