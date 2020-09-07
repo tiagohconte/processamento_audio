@@ -11,10 +11,13 @@
 int main(int argc, char **argv){
 
 	FILE *input = NULL, *output = NULL;
-	float volume;
+	float volume = 1;
 	int i;
 	// tratamento da linha de comando
 	trataComandoIOLevel(argc, argv, &input, &output, &volume);
+	// verifica se volume está dentro dos fator de ajuste
+	if((volume < 0) || (volume > 10))
+		fprintf(stderr, "Volume inválido!\n");
 	// declaração da variável tipo cabeçalho wav
 	wavFile_t wavFile;
 	// leitura das informações do arquivo wav
