@@ -76,7 +76,7 @@ int main(int argc, char **argv){
 		wavFile.vetorSamples[i] *= volume;
 
 	// escreve os samples no output
-	if(!writeSamples(&wavFile, output)){
+	if(!writeWAV(&wavFile, output)){
 		fprintf(stderr, "Erro na escrita das samples em arquivo WAV!\n");
 		exit(1);
 	}

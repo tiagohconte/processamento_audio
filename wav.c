@@ -33,7 +33,7 @@ int readSamples(wavFile_t *wav, FILE *readFile){
 
 }
 // Escreve samples em arquivo WAV
-int writeSamples(wavFile_t *wav, FILE *writeFile){
+int writeWAV(wavFile_t *wav, FILE *writeFile){
 	fwrite(wav, 44, 1, writeFile);
 	fwrite(wav->vetorSamples, wav->bytesPerSample, wav->dataSize/wav->bytesPerSample, writeFile);
 

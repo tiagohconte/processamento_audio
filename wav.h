@@ -24,7 +24,7 @@ typedef struct wavFile_t {
 	uint32_t dataSize;
 	uint16_t bytesPerSample;
 	uint32_t samplesPerChannel;
-	uint16_t *vetorSamples;
+	int16_t *vetorSamples;
 } wavFile_t;
 
 
@@ -32,5 +32,5 @@ typedef struct wavFile_t {
 int readInfo(wavFile_t *wav, FILE *readFile);
 // Lê samples do arquivo WAV
 int readSamples(wavFile_t *wav, FILE *readFile);
-// Escreve samples em arquivo WAV
-int writeSamples(wavFile_t *wav, FILE *writeFile);
+// Escreve um arquivo WAV
+int writeWAV(wavFile_t *wav, FILE *writeFile);
