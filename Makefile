@@ -6,15 +6,17 @@ CC = gcc
 objs = wav.o
  
 # regra default
-all: wavinfo wavvol
+all: wavinfo wavvol wavnorm
  
 # regras de ligacao
 wavinfo: $(objs) wavinfo.o
 wavvol: $(objs) wavvol.o
+wavnorm: $(objs) wavnorm.o
  
 # regras de compilação
 wavinfo.o: wavinfo.c wav.h
-wavvol.o: wavvol.c wav.h	
+wavvol.o: wavvol.c wav.h
+wavnorm.o: wavnorm.c wav.h
 wav.o: wav.c wav.h
 
 # compila com flags de depuração
@@ -23,8 +25,8 @@ debug: all
 
 # remove arquivos temporários
 clean:
-	-rm -f $(objs) wavinfo.o wavvol.o
+	-rm -f $(objs) wavinfo.o wavvol.o wavnorm.o
 
 # remove tudo o que não for o código-fonte
 purge: clean
-	-rm -f wavinfo wavvol
+	-rm -f wavinfo wavvol wavnorm

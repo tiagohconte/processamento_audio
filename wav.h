@@ -24,7 +24,7 @@ typedef struct wavFile_t {
 	uint32_t dataSize;
 	uint16_t bytesPerSample;
 	uint32_t samplesPerChannel;
-	uint32_t *vetorSamples;
+	uint16_t *vetorSamples;
 } wavFile_t;
 
 

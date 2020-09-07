@@ -1,6 +1,6 @@
 /*	GRR20190374 Tiago Henrique Conte
 	Projeto de processamento de áudio
-	Programa de ajsute de volume
+	Programa de ajuste de volume
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,6 +54,7 @@ int main(int argc, char **argv){
 
 	FILE *input = NULL, *output = NULL;
 	float volume;
+	int i;
 	// tratamento da linha de comando
 	comando(argc, argv, &input, &output, &volume);
 	// declaração da variável tipo cabeçalho wav
@@ -64,7 +65,6 @@ int main(int argc, char **argv){
 		exit(1);
 	}
 
-	int i;
 	// leitura de samples
 	if(!readSamples(&wavFile, input)){
 		fprintf(stderr, "Erro na leitura das samples do arquivo WAV!\n");

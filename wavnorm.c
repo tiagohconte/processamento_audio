@@ -1,0 +1,94 @@
+/*	GRR20190374 Tiago Henrique Conte
+	Projeto de processamento de áudio
+	Programa de ajuste automático de volume
+*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include "wav.h"
+
+void comando(int argc, char **argv, FILE **input, FILE **output){
+	int option, flag_i = 0, flag_o = 0;
+	char *value_i, *value_o;
+	// opcoes: -i arquivo
+	while((option = getopt(argc, argv, "l:i:o:")) != -1)
+		switch(option){
+			case 'i':		//opcao -i selecionada
+				flag_i = 1;
+				value_i = optarg;
+				break;
+			case 'o':		//opcao -o selecionada
+				flag_o = 1;
+				value_o = optarg;
+				break;
+			default:
+				fprintf(stderr, "Formato: wavnorm -i input -o output\n");
+				exit(1);
+		}	
+	// verifica se houve entrada com -i
+	if(flag_i){
+		*input = fopen(value_i,"r");
+		if(!input){
+			fprintf(stderr, "Erro na leitura do arquivo WAV!\n");
+			exit(1);
+		}
+	}else
+		*input = stdin;
+	// verifica se houve entrada com -o
+	if(flag_o)
+		*output = fopen(value_o,"w");
+	else
+		*output = stdout;
+
+	return;
+}
+
+int main(int argc, char **argv){
+
+	FILE *input = NULL, *output = NULL;
+	float volume;
+	int i;
+	// tratamento da linha de comando
+	comando(argc, argv, &input, &output);
+	// declaração da variável tipo cabeçalho wav
+	wavFile_t wavFile;
+	// leitura das informações do arquivo wav
+	if(!readInfo(&wavFile, input)){
+		fprintf(stderr, "Erro na leitura das informações do arquivo WAV!\n");
+		exit(1);
+	}
+
+	// leitura de samples
+	if(!readSamples(&wavFile, input)){
+		fprintf(stderr, "Erro na leitura das samples do arquivo WAV!\n");
+		exit(1);
+	}
+
+	// encontra o valor do pico
+	uint16_t valorSample, pico = 0;
+	for(i = 0; i < (wavFile.dataSize/wavFile.bytesPerSample); i++){
+		valorSample = wavFile.vetorSamples[i];
+		if(valorSample < 0){
+			if((-valorSample) > pico)
+				pico = valorSample;
+		}
+		else
+			if(valorSample > pico)
+				pico = valorSample;
+	}
+	printf("pico: %d\n", pico);
+	// normaliza o volume
+	/*for(i = 0; i < (wavFile.dataSize/wavFile.bytesPerSample); i++)
+		wavFile.vetorSamples[i] *= volume;*/
+
+	// escreve os samples no output
+	if(!writeSamples(&wavFile, output)){
+		fprintf(stderr, "Erro na escrita das samples em arquivo WAV!\n");
+		exit(1);
+	}
+
+	fclose(input);
+	fclose(output);
+
+	return 0;
+}
