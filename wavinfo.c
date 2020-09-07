@@ -37,7 +37,7 @@ int main(int argc, char **argv){
 		exit(1);
 	}
 	// Declaração de variável do tipo WAV
-	wavHeader_t wav;
+	wavFile_t wav;
 	// realiza a leitura das informações contidas nos arquivos
 	if(!readInfo(&wav, input)){
 		fprintf(stderr, "Erro na leitura das informações do arquivo WAV!\n");

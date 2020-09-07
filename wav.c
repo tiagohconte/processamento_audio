@@ -8,34 +8,34 @@
 #include "wav.h"
 
 // Lê informações no arquivo WAV
-int readInfo(wavHeader_t *wav, FILE *readFile){
+int readInfo(wavFile_t *wav, FILE *readFile){
 	if(!readFile)
 		return 0;
 
-	fread(wav, sizeof(wavHeader_t)-8, 1, readFile);
+	fread(wav, 44, 1, readFile);
 	wav->bytesPerSample = wav->bitsPerSample/8;
 	wav->samplesPerChannel = (wav->dataSize/wav->bytesPerSample)/wav->numChannels;
 
 	return 1;	
 }
 // Lê samples do arquivo WAV e retorna numero de samples
-int readSamples(wavHeader_t *wav, wavSamples_t *samples, FILE *readFile){	
-	samples->vetorSamples = malloc(wav->dataSize*2);
-	if(!samples->vetorSamples){
+int readSamples(wavFile_t *wav, FILE *readFile){	
+	wav->vetorSamples = malloc(wav->dataSize*2);
+	if(!wav->vetorSamples){
 		fprintf(stderr, "Erro ao alocar samples!");
 		return 0;
 	}
 	while(!feof(readFile)){
-		fread(samples->vetorSamples, wav->bytesPerSample, wav->dataSize/wav->bytesPerSample, readFile);
+		fread(wav->vetorSamples, wav->bytesPerSample, wav->dataSize/wav->bytesPerSample, readFile);
 	}
 
 	return 1;
 
 }
 // Escreve samples em arquivo WAV
-int writeSamples(wavHeader_t *wav, wavSamples_t *samples, FILE *writeFile){
-	fwrite(wav, sizeof(wavHeader_t)-8, 1, writeFile);
-	fwrite(samples->vetorSamples, wav->bytesPerSample, wav->dataSize/wav->bytesPerSample, writeFile);
+int writeSamples(wavFile_t *wav, FILE *writeFile){
+	fwrite(wav, 44, 1, writeFile);
+	fwrite(wav->vetorSamples, wav->bytesPerSample, wav->dataSize/wav->bytesPerSample, writeFile);
 
 	return 1;
 }

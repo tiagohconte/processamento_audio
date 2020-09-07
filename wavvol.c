@@ -57,29 +57,26 @@ int main(int argc, char **argv){
 	// tratamento da linha de comando
 	comando(argc, argv, &input, &output, &volume);
 	// declaração da variável tipo cabeçalho wav
-	wavHeader_t wavFile;
+	wavFile_t wavFile;
 	// leitura das informações do arquivo wav
 	if(!readInfo(&wavFile, input)){
 		fprintf(stderr, "Erro na leitura das informações do arquivo WAV!\n");
 		exit(1);
 	}
 
-	// declaração da variável tipo samples wav
-	wavSamples_t samples;
 	int i;
 	// leitura de samples
-	if(!readSamples(&wavFile, &samples, input)){
+	if(!readSamples(&wavFile, input)){
 		fprintf(stderr, "Erro na leitura das samples do arquivo WAV!\n");
 		exit(1);
 	}
 
 	// aumenta o volume
-	fprintf(stderr, "%f\n", volume);
 	for(i = 0; i < (wavFile.dataSize/wavFile.bytesPerSample); i++)
-		samples.vetorSamples[i] *= volume;
+		wavFile.vetorSamples[i] *= volume;
 
 	// escreve os samples no output
-	if(!writeSamples(&wavFile, &samples, output)){
+	if(!writeSamples(&wavFile, output)){
 		fprintf(stderr, "Erro na escrita das samples em arquivo WAV!\n");
 		exit(1);
 	}
