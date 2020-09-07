@@ -66,14 +66,19 @@ int main(int argc, char **argv){
 
 	// declaração da variável tipo samples wav
 	wavSamples_t samples;
-	//leitura de samples
+	int i;
+	// leitura de samples
 	if(!readSamples(&wavFile, &samples, input)){
 		fprintf(stderr, "Erro na leitura das samples do arquivo WAV!\n");
 		exit(1);
 	}
 
-	//FAZER ALTERAR VOLUME
+	// aumenta o volume
+	for(i = 0; i < (wavFile.dataSize/wavFile.bytesPerSample); i++)
+		samples.vetorSamples[i] *= volume;
+		/*fprintf(stderr, "%d ", samples.vetorSamples[i]);*/
 
+	// escreve os samples no output
 	if(!writeSamples(&wavFile, &samples, output)){
 		fprintf(stderr, "Erro na escrita das samples em arquivo WAV!\n");
 		exit(1);
