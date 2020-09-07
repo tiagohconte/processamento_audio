@@ -37,8 +37,8 @@ int main(int argc, char **argv){
 
 	// calcula o eco
 	for(i = 0; i < (wavFile.dataSize/wavFile.bytesPerSample); i++)
-		if(i > delay)
-			wavFile.vetorSamples[i] += (level * wavFile.vetorSamples[i-delay]);
+		if(i > (wavFile.sampleRate)*(delay/1000))
+			wavFile.vetorSamples[i] += (level * wavFile.vetorSamples[i-(wavFile.sampleRate)*(delay/1000)]);
 
 	// escreve info no output
 	if(!writeInfo(&wavFile, output)){
