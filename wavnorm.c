@@ -55,12 +55,18 @@ int main(int argc, char **argv){
 	for(i = 0; i < (wavFile.dataSize/wavFile.bytesPerSample); i++)
 		wavFile.vetorSamples[i] *= volume;
 
+	// escreve info no output
+	if(!writeInfo(&wavFile, output)){
+		fprintf(stderr, "Erro na escrita de info em arquivo WAV!\n");
+		exit(1);
+	}
 	// escreve os samples no output
-	if(!writeWAV(&wavFile, output)){
+	if(!writeSamples(&wavFile, output)){
 		fprintf(stderr, "Erro na escrita das samples em arquivo WAV!\n");
 		exit(1);
 	}
 
+	free(wavFile.vetorSamples);
 	fclose(input);
 	fclose(output);
 

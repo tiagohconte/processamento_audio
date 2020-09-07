@@ -30,7 +30,9 @@ typedef struct wavFile_t {
 
 // Lê informações do arquivo WAV
 int readInfo(wavFile_t *wav, FILE *readFile);
-// Lê samples do arquivo WAV
+// Escreve samples no arquivo WAV
 int readSamples(wavFile_t *wav, FILE *readFile);
-// Escreve um arquivo WAV
-int writeWAV(wavFile_t *wav, FILE *writeFile);
+// Escreve informacoes no arquivo WAV
+int writeInfo(wavFile_t *wav, FILE *writeFile);
+// Escreve samples no arquivo WAV
+int writeSamples(wavFile_t *wav, FILE *writeFile);

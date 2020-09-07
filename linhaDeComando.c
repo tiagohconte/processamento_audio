@@ -2,11 +2,9 @@
 	Projeto de processamento de áudio
 	Biblioteca para tratamento da linha de comando
 */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
 
 // comandos com input apenas
 void trataComandoInput(int argc, char **argv, FILE **input){
