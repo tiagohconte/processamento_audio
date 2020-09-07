@@ -4,9 +4,10 @@ CFLAGS = -Wall
 CC = gcc
  
 objs = wav.o linhaDeComando.o
+libs = wav.h linhaDeComando.h
  
 # regra default
-all: wavinfo wavvol wavnorm wavrev wavecho
+all: wavinfo wavvol wavnorm wavrev wavecho wavwide
  
 # regras de ligacao
 wavinfo: $(objs) wavinfo.o
@@ -14,13 +15,15 @@ wavvol: $(objs) wavvol.o
 wavnorm: $(objs) wavnorm.o
 wavrev: $(objs)	wavrev.o
 wavecho: $(objs) wavecho.o
+wavwide: $(objs) wavwide.o
 
 # regras de compilação
-wavinfo.o: wavinfo.c wav.h linhaDeComando.h
-wavvol.o: wavvol.c wav.h linhaDeComando.h
-wavnorm.o: wavnorm.c wav.h linhaDeComando.h
-wavrev.o: wavrev.c wav.h linhaDeComando.h
-wavecho.o: wavecho.c wav.h linhaDeComando.h
+wavinfo.o: wavinfo.c $(libs)
+wavvol.o: wavvol.c $(libs)
+wavnorm.o: wavnorm.c $(libs)
+wavrev.o: wavrev.c $(libs)
+wavecho.o: wavecho.c $(libs)
+wavwide.o: wavwide.c $(libs)
 wav.o: wav.c wav.h
 linhaDeComando.o: linhaDeComando.c linhaDeComando.h
 
@@ -30,8 +33,8 @@ debug: all
 
 # remove arquivos temporários
 clean:
-	-rm -f $(objs) wavinfo.o wavvol.o wavnorm.o wavrev.o wavecho.o
+	-rm -f $(objs) wavinfo.o wavvol.o wavnorm.o wavrev.o wavecho.o wavwide.o
 
 # remove tudo o que não for o código-fonte
 purge: clean
-	-rm -f wavinfo wavvol wavnorm wavrev wavecho
+	-rm -f wavinfo wavvol wavnorm wavrev wavecho wavwide

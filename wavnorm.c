@@ -45,10 +45,10 @@ int main(int argc, char **argv){
 				pico = valorSample;
 	}
 	#ifdef DEBUG
-	printf("pico: %d\n", pico);
+	fprintf(stderr, "pico: %d\n", pico);
 	#endif
 	// calcula volume para as samples
-	volume = (float) PICO16BITS/pico;
+	volume = (float) PICO16BITS*(0.99)/pico;
 	fprintf(stderr, "Volume automático: %.3f\n", volume);
 
 	// normaliza o volume
