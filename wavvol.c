@@ -74,9 +74,9 @@ int main(int argc, char **argv){
 	}
 
 	// aumenta o volume
+	fprintf(stderr, "%f\n", volume);
 	for(i = 0; i < (wavFile.dataSize/wavFile.bytesPerSample); i++)
 		samples.vetorSamples[i] *= volume;
-		/*fprintf(stderr, "%d ", samples.vetorSamples[i]);*/
 
 	// escreve os samples no output
 	if(!writeSamples(&wavFile, &samples, output)){

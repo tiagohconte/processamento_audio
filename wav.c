@@ -20,7 +20,7 @@ int readInfo(wavHeader_t *wav, FILE *readFile){
 }
 // Lê samples do arquivo WAV e retorna numero de samples
 int readSamples(wavHeader_t *wav, wavSamples_t *samples, FILE *readFile){	
-	samples->vetorSamples = malloc(wav->dataSize);
+	samples->vetorSamples = malloc(wav->dataSize*2);
 	if(!samples->vetorSamples){
 		fprintf(stderr, "Erro ao alocar samples!");
 		return 0;
