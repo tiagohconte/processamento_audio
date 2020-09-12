@@ -2,6 +2,10 @@
     Projeto de processamento de áudio
     Cabeçalho Biblioteca WAV 
 */
+
+#ifndef __WAV__
+#define __WAV__
+
 #include <stdint.h>
 
 // Struct para cabeçalho de arquivo WAV
@@ -36,3 +40,5 @@ int readSamples(wavFile_t *wav, FILE *readFile);
 int writeInfo(wavFile_t *wav, FILE *writeFile);
 // Escreve samples no arquivo WAV
 int writeSamples(wavFile_t *wav, FILE *writeFile);
+
+#endif
