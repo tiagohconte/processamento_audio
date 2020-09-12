@@ -16,6 +16,7 @@ wavnorm: $(objs) wavnorm.o
 wavrev: $(objs)	wavrev.o
 wavecho: $(objs) wavecho.o
 wavwide: $(objs) wavwide.o
+wavcat: $(objs) wavcat.o
 
 # regras de compilação
 wavinfo.o: wavinfo.c $(libs)

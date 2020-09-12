@@ -7,12 +7,14 @@
 #include <stdlib.h>
 #include "wav.h"
 
+#define TAM_HEADER 44
+
 // Lê informações no arquivo WAV
 int readInfo(wavFile_t *wav, FILE *readFile){
     if(!readFile)
         return 0;
 
-    fread(wav, 44, 1, readFile);
+    fread(wav, TAM_HEADER, 1, readFile);
     wav->bytesPerSample = wav->bitsPerSample/8;
     wav->samplesPerChannel = (wav->dataSize/wav->bytesPerSample)/wav->numChannels;
 
@@ -34,7 +36,7 @@ int readSamples(wavFile_t *wav, FILE *readFile){
 }
 // Escreve informacoes no arquivo WAV
 int writeInfo(wavFile_t *wav, FILE *writeFile){
-    if(!fwrite(wav, 44, 1, writeFile))
+    if(!fwrite(wav, TAM_HEADER, 1, writeFile))
         return 0;
 
     return 1;

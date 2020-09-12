@@ -166,8 +166,8 @@ void trataComandoIOLevelTime(int argc, char **argv, FILE **input, FILE **output,
     return;
 }
 
-// comandos com vários inputs e um output
-void trataComandoVariosInputs(int argc, char **argv, FILE **input, FILE **output){
+// comandos com output
+void trataComandoOutput(int argc, char **argv, FILE **output){
     int option, flag_o = 0;
     char *value_o;
 
@@ -179,7 +179,7 @@ void trataComandoVariosInputs(int argc, char **argv, FILE **input, FILE **output
                 value_o = optarg;
                 break;
             default:
-                fprintf(stderr, "Formato: %s -i input -o output\n", argv[0]);
+                fprintf(stderr, "Formato: %s ... -o output\n", argv[0]);
                 exit(1);
         }
     // verifica se houve entrada com -o

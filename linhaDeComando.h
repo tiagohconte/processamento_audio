@@ -10,3 +10,5 @@ void trataComandoIO(int argc, char **argv, FILE **input, FILE **output);
 void trataComandoIOLevel(int argc, char **argv, FILE **input, FILE **output, float *level);
 // comandos com input, output, level e time
 void trataComandoIOLevelTime(int argc, char **argv, FILE **input, FILE **output, float *level, int *time);
+// comandos com output
+void trataComandoOutput(int argc, char **argv, FILE **output);
