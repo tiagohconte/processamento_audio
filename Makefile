@@ -7,7 +7,7 @@ objs = wav.o linhaDeComando.o
 libs = wav.h linhaDeComando.h
  
 # regra default
-all: wavinfo wavvol wavnorm wavrev wavecho wavwide
+all: wavinfo wavvol wavnorm wavrev wavecho wavwide wavcat
  
 # regras de ligacao
 wavinfo: $(objs) wavinfo.o
@@ -24,6 +24,7 @@ wavnorm.o: wavnorm.c $(libs)
 wavrev.o: wavrev.c $(libs)
 wavecho.o: wavecho.c $(libs)
 wavwide.o: wavwide.c $(libs)
+wavcat.o: wavcat.c $(libs)
 wav.o: wav.c wav.h
 linhaDeComando.o: linhaDeComando.c linhaDeComando.h
 
@@ -33,8 +34,8 @@ debug: all
 
 # remove arquivos temporários
 clean:
-	-rm -f $(objs) wavinfo.o wavvol.o wavnorm.o wavrev.o wavecho.o wavwide.o
+	-rm -f $(objs) wavinfo.o wavvol.o wavnorm.o wavrev.o wavecho.o wavwide.o wavcat.o
 
 # remove tudo o que não for o código-fonte
 purge: clean
-	-rm -f wavinfo wavvol wavnorm wavrev wavecho wavwide
+	-rm -f wavinfo wavvol wavnorm wavrev wavecho wavwide wavcat

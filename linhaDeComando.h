@@ -1,6 +1,6 @@
-/*	GRR20190374 Tiago Henrique Conte
-	Projeto de processamento de áudio
-	Biblioteca para tratamento da linha de comando
+/*  GRR20190374 Tiago Henrique Conte
+    Projeto de processamento de áudio
+    Biblioteca para tratamento da linha de comando
 */
 // comandos com input apenas
 void trataComandoInput(int argc, char **argv, FILE **input);
