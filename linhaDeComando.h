@@ -6,6 +6,9 @@
 #ifndef __COMMANDLINE__
 #define __COMMANDLINE__
 
+#define VALOR_ALOC 5
+#define MAX_INPUT 20
+
 // comandos com input apenas
 void trataComandoInput(int argc, char **argv, FILE **input);
 // comandos com input e output
@@ -14,7 +17,7 @@ void trataComandoIO(int argc, char **argv, FILE **input, FILE **output);
 void trataComandoIOLevel(int argc, char **argv, FILE **input, FILE **output, float *level);
 // comandos com input, output, level e time
 void trataComandoIOLevelTime(int argc, char **argv, FILE **input, FILE **output, float *level, int *time);
-// comandos com output
-void trataComandoOutput(int argc, char **argv, FILE **output);
+// comandos com varios inputs e um output
+void trataComandoVariosInputs(int argc, char **argv, int *inputFiles, FILE **output);
 
 #endif
