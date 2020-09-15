@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
 #include "wav.h"
 #include "linhaDeComando.h"
 
@@ -18,10 +17,10 @@ int main(int argc, char **argv){
     // criacao variavel tipo wavFile, uma original e outra provisoria
     wavFile_t wavFile, wavFilePROV;
 
-    /* Lê todas os inputs e realiza a concatenação */
+    /* Lê todos os inputs e realiza a concatenação */
     for(i = 0; i < inputPos[MAX_INPUT]; i++){
         input = fopen(argv[inputPos[i]], "r");
-
+        // lê o primeiro input para adquirir padrão
         if(i == 0){
             // leitura das informações do arquivo wav
             if(!readInfo(&wavFile, input)){

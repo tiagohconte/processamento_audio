@@ -188,7 +188,7 @@ void trataComandoVariosInputs(int argc, char **argv, int *inputFiles, FILE **out
             /*  verifica se tem mais argumentos de
                 input do que o definido por MAX_INPUT   */
             if(contInput > MAX_INPUT){
-                fprintf(stderr, "Muitos argumentos!\n");
+                fprintf(stderr, "Muitos argumentos! Limite de inputs: %d\n", MAX_INPUT);
                 exit(1);
             }  
             // adiciona a posicao do arquivo input em argv
@@ -197,6 +197,12 @@ void trataComandoVariosInputs(int argc, char **argv, int *inputFiles, FILE **out
         }
         i++;        
     }
+    // verifica se há mais de uma entrada
+    if(contInput < 2){
+        fprintf(stderr, "Poucos argumentos! %s espera ao menos 2 arquivos de input\n", argv[0]);
+        exit(1);
+    }
+    // guarda o tamanho de input no último espaço do vetor
     inputFiles[MAX_INPUT] = contInput;
     // verifica se houve entrada com -o
     if(flag_o)

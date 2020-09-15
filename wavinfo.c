@@ -8,35 +8,10 @@
 #include "wav.h"
 #include "linhaDeComando.h"
 
-FILE * comando(int argc, char **argv){
-    int option, flag_i = 0;
-    char *value_i;
-    // opcoes: -i arquivo
-    while((option = getopt(argc, argv, "i:")) != -1)
-        switch(option){
-            case 'i':       //opcao -i selecionada
-                flag_i = 1;
-                value_i = optarg;
-                break;
-            default:
-                fprintf(stderr, "Opção requer um argumento!\n");
-                exit(1);
-        }
-    // verifica se houve entrada com -i
-    if(flag_i)
-        return fopen(value_i,"r");
-    else
-        return stdin;
-}
-
 int main(int argc, char **argv){
     FILE *input;
     // tratamento da linha de comando
     trataComandoInput(argc, argv, &input);
-    if(!input){
-        fprintf(stderr, "Erro na leitura do arquivo WAV!\n");
-        exit(1);
-    }
     // Declaração de variável do tipo WAV
     wavFile_t wav;
     // realiza a leitura das informações contidas nos arquivos
