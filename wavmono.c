@@ -35,12 +35,12 @@ int main(int argc, char **argv){
     FILE *outputLeft, *outputRight;
     outputLeft = fopen("left.wav","w");
     if(!outputLeft){
-        fprintf(stderr, "Erro na leitura do arquivo WAV!\n");
+        fprintf(stderr, "Erro na abertura do arquivo WAV!\n");
         exit(1);
     }
     outputRight = fopen("right.wav","w");
     if(!outputRight){
-        fprintf(stderr, "Erro na leitura do arquivo WAV!\n");
+        fprintf(stderr, "Erro na abertura do arquivo WAV!\n");
         exit(1);
     }
     dataSize = wav.dataSize;
